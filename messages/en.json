@@ -1,0 +1,58 @@
+{
+  "Nav": {
+    "location": "Hawassa, Sidama Region, Ethiopia",
+    "portal": "Student Portal",
+    "calendar": "Academic Calendar",
+    "home": "Home",
+    "about": "About Us",
+    "academics": "Academics",
+    "admissions": "Admissions",
+    "contact": "Contact",
+    "apply": "Apply Now",
+    "schoolName": "Sankofa",
+    "schoolSub": "International School"
+  },
+  "Home": {
+    "heroTitle": "Leading Education in Hawassa",
+    "heroSub": "Empowering Minds, Honoring Heritage.",
+    "heroDesc": "Providing a world-class education rooted in the philosophy of Sankofa—reaching back to fetch what is valuable to build a better future in the heart of Hawassa.",
+    "explore": "Explore Our Campus",
+    "contactAdmissions": "Contact Admissions"
+  },
+  "About": {
+    "title": "About Sankofa",
+    "mission": "Our Mission",
+    "missionText": "To cultivate a community of lifelong learners who lead with integrity, rooted in Ethiopian heritage while meeting global academic standards.",
+    "vision": "Our Vision",
+    "visionText": "To be the premier international school in the Sidama Region, empowering the next generation of global innovators."
+  },
+  "Academics": {
+    "title": "Academic Excellence",
+    "subtitle": "A curriculum designed for the future.",
+    "stem": "STEM Innovation",
+    "stemText": "State-of-the-art laboratories and a forward-thinking science program.",
+    "arts": "Arts & Humanities",
+    "artsText": "Fostering creativity and critical thinking through comprehensive arts education."
+  },
+  "Admissions": {
+    "title": "Join Our Community",
+    "process": "Admissions Process",
+    "step1": "1. Submit Online Application",
+    "step2": "2. Entrance Assessment",
+    "step3": "3. Family Interview",
+    "applyNow": "Start Application"
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "address": "Hawassa, Sidama Region, Ethiopia",
+    "email": "admissions@sankofahawassa.edu",
+    "formName": "Full Name",
+    "formEmail": "Email Address",
+    "formMessage": "Message",
+    "submit": "Send Message"
+  },
+  "Footer": {
+    "desc": "Sankofa International School is committed to providing an education that empowers students to lead with wisdom.",
+    "rights": "© 2026 Elroi Technology Service PLC. All Rights Reserved."
+  }
+}
