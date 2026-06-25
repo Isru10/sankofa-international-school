@@ -242,34 +242,51 @@
 // }
 
 
-
 "use client";
 
-import { useEffect, useState } from "react";
-import { ArrowRight, BookOpen, Globe2, Lightbulb, ShieldCheck, Play, Calendar, Users, Microscope, Palette, Trophy, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
+import { useEffect, useState, MouseEvent } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+import { ArrowRight, BookOpen, Globe2, Lightbulb, ShieldCheck, Play, Calendar, Users, Trophy, Palette, Microscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// --------------------------------------------------------
-// THE ULTIMATE GLASSMORPHISM COMPONENT
-// Every piece of content uses this to ensure the entire
-// page remains transparent, blurred, and sophisticated.
-// --------------------------------------------------------
 const GlassPanel = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
   <div className={`relative overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] rounded-xl transition-all duration-500 hover:bg-white/[0.06] hover:border-white/20 ${className}`}>
     <div className="relative z-10 h-full">{children}</div>
   </div>
 );
 
+const GlowCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    target.style.setProperty("--mouse-x", `${x}px`);
+    target.style.setProperty("--mouse-y", `${y}px`);
+  };
+
+  return (
+    <div 
+      onMouseMove={handleMouseMove}
+      className={`relative group overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 rounded-lg transition-all duration-500 hover:border-secondary/50 ${className}`}
+    >
+      <div 
+        className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+        style={{ background: `radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), rgba(212, 175, 55, 0.12), transparent 40%)` }}
+      />
+      <div className="relative z-10 h-full">{children}</div>
+    </div>
+  );
+};
+
 export default function Home() {
+  const t = useTranslations("Home");
   const [scrollY, setScrollY] = useState(0);
 
-  // Universal Parallax Engine
   useEffect(() => {
     const handleScroll = () => {
-      requestAnimationFrame(() => {
-        setScrollY(window.scrollY);
-      });
+      requestAnimationFrame(() => setScrollY(window.scrollY));
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -278,168 +295,102 @@ export default function Home() {
   return (
     <div className="relative w-full min-h-screen bg-[#00152e] text-white selection:bg-secondary selection:text-primary pb-32">
       
-      {/* ======================================================== */}
-      {/* 1. UNIVERSAL PARALLAX BACKGROUND (Covers the entire page) */}
-      {/* ======================================================== */}
+      {/* Universal Parallax Background */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Base Image Background */}
         <div 
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"
-          style={{ transform: `scale(${1 + scrollY * 0.0002})` }} // Extremely slow zoom parallax
+          style={{ transform: `scale(${1 + scrollY * 0.0002})` }}
         />
-        {/* Deep Navy Overlay to maintain brand identity and readability */}
         <div className="absolute inset-0 bg-primary/90 mix-blend-multiply" />
         
-        {/* Floating Parallax Orbs (Gold and Light Blue) */}
         <div 
           className="absolute top-[10%] left-[5%] w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[120px]"
-          style={{ transform: `translateY(${scrollY * -0.2}px)` }} // Moves up fast
+          style={{ transform: `translateY(${scrollY * -0.2}px)` }}
         />
         <div 
           className="absolute top-[40%] right-[10%] w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px]"
-          style={{ transform: `translateY(${scrollY * -0.1}px)` }} // Moves up medium
-        />
-        <div 
-          className="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px]"
-          style={{ transform: `translateY(${scrollY * -0.3}px)` }} // Moves up fastest
+          style={{ transform: `translateY(${scrollY * -0.1}px)` }}
         />
       </div>
 
-      {/* ======================================================== */}
-      {/* MAIN CONTENT WRAPPER (Floating over the parallax background) */}
-      {/* ======================================================== */}
       <main className="relative z-10 w-full max-w-[1300px] mx-auto px-6 lg:px-12 flex flex-col gap-24 pt-32">
 
         {/* 1. HERO SECTION */}
         <section className="flex items-center justify-center min-h-[75vh] pt-12">
-          <GlassPanel className="p-10 md:p-16 text-center max-w-5xl w-full flex flex-col items-center">
+          <GlassPanel className="p-10 md:p-16 text-center max-w-4xl w-full flex flex-col items-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-[1.1] mb-6">
-              Heritage <span className="font-light italic text-secondary">meets</span> Innovation.
+              {t("title")}
             </h1>
             <p className="text-white/80 text-base md:text-lg font-medium leading-relaxed max-w-3xl mb-10">
-              Sankofa International School delivers a deeply enriching, world-class curriculum in Hawassa, Sidama Region. We bridge the gap between profound cultural wisdom and cutting-edge global readiness, preparing students to lead with unyielding integrity.
+              {t("desc")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Button asChild size="lg" className="rounded-xl bg-secondary text-primary hover:bg-white hover:text-primary font-bold tracking-widest uppercase text-xs h-12 px-8 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
-                <Link href="/admissions">Begin Journey <ArrowRight size={14} className="ml-2" /></Link>
+                <Link href="/admissions">{t("ctaBegin")} <ArrowRight size={14} className="ml-2" /></Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-xl border-white/20 text-black hover:bg-white/10 hover:border-white/40 font-bold tracking-widest uppercase text-xs h-12 px-8 backdrop-blur-md transition-all duration-300">
-                <Link href="/about"><Play size={14} className="mr-2" /> Explore Campus</Link>
+              <Button asChild size="lg" variant="outline" className="rounded-xl border-white/20 text-primary hover:text-white hover:bg-white/10 hover:border-white/40 font-bold tracking-widest uppercase text-xs h-12 px-8 backdrop-blur-md transition-all duration-300">
+                <Link href="/about"><Play size={14} className="mr-2" /> {t("ctaTour")}</Link>
               </Button>
             </div>
           </GlassPanel>
         </section>
 
-        {/* 2. FLOATING STATS */}
-             <section className="relative z-20 px-6 lg:px-12 -mt-20 max-w-[1200px] mx-auto w-full mb-24">
-        {/* Changed background to white/[0.04] for a true glass contrast over the image */}
-        <div className="w-full bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl p-8 md:p-12">
-          
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4 items-center justify-center w-full">
-            
-            <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
-              <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">100%</span>
-              <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">
-                University Placement
-              </span>
+        {/* 2. BALANCED STATS */}
+        <section>
+          <GlassPanel className="p-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4 items-center justify-center w-full">
+              <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
+                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">100%</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("placement")}</span>
+              </div>
+              <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
+                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">15+</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("partnerships")}</span>
+              </div>
+              <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
+                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">12:1</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("ratio")}</span>
+              </div>
+              <div className="flex flex-col items-center justify-center text-center w-full last:border-0">
+                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Top 1%</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("excellence")}</span>
+              </div>
             </div>
+          </GlassPanel>
+        </section>
 
-            <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
-              <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">15+</span>
-              <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">
-                Global Partnerships
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
-              <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">12:1</span>
-              <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">
-                Student-Staff Ratio
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center text-center w-full last:border-0">
-              <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Top 1%</span>
-              <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">
-                Regional Excellence
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-        {/* 3. HEAD OF SCHOOL WELCOME (Data Rich) */}
+        {/* 3. ETHOS SECTION */}
         <section>
           <GlassPanel className="p-8 md:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* <div className="lg:col-span-5 relative h-[500px] rounded-xl overflow-hidden border border-white/10">
-                <img src="/tekola-cheru.png" alt="Head of School" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="lg:col-span-5 relative h-[500px] rounded-xl overflow-hidden border border-white/10">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" alt="Ethos" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
-              </div> */}
-              
-              {/* OPTION 2 */}
-              
-              {/* <div className="lg:col-span-5 relative h-[500px] rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] flex items-center justify-center">
-  
-  <img 
-    src="/tekola-cheru.png" 
-    alt="" 
-    className="absolute inset-0 w-full h-full object-cover blur-lg opacity-30 scale-110 pointer-events-none" 
-  />
-  
-  
-  <img 
-    src="/tekola-cheru.png" 
-    alt="Head of School" 
-    className="relative z-10 max-h-full max-w-full object-contain" 
-  />
-  
-  
-  <div className="absolute inset-0 bg-gradient-to-t from-[#00152e]/80 via-transparent to-transparent z-20" />
-  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay z-20" />
-</div> */}
-
-{/* OPTION 3 */}
-
-<div className="lg:col-span-5 rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] flex items-center justify-center">
-  <img 
-    src="/tekola-cheru.png" 
-    alt="Head of School" 
-    className="w-full h-auto max-h-[500px] object-contain block mx-auto" 
-  />
-</div>
+              </div>
               <div className="lg:col-span-7 flex flex-col space-y-6">
                 <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase flex items-center gap-2">
-                  <div className="w-6 h-[1px] bg-secondary" /> Welcome Address
+                  <div className="w-6 h-[1px] bg-secondary" /> {t("ethosBadge")}
                 </h2>
                 <h3 className="text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
-                  A Foundation Built on <br className="hidden md:block" /> Absolute Integrity.
+                  {t("ethosHeading")}
                 </h3>
-                <div className="space-y-4 text-white/70 text-base leading-relaxed">
-                  <p>
-                    "Education must serve a dual purpose: expanding the intellect while grounding the moral compass. At Sankofa, located in the vibrant heart of Hawassa, we do not simply teach students how to pass examinations. We teach them how to navigate an increasingly complex world."
-                  </p>
-                  <p>
-                    "By drawing upon the 'Sankofa' philosophy—fetching what is valuable from our past to build the future—our students leave these halls not just as scholars, but as leaders with a profound understanding of their Ethiopian heritage and the skills required for the global stage."
-                  </p>
-                </div>
+                <p className="text-white/70 text-base leading-relaxed">
+                  {t("ethosDesc")}
+                </p>
                 <div className="pt-6 border-t border-white/10 mt-6">
-                  <span className="block font-serif text-2xl font-black text-white">Mr.Tekola  Cheru</span>
-                  <span className="block text-xs font-medium text-secondary uppercase tracking-widest mt-1">Founder and Head of School</span>
+                  <span className="block font-serif text-2xl font-black text-white">Mr. Tekola Cheru</span>
+                  <span className="block text-xs font-medium text-secondary uppercase tracking-widest mt-1">Head of School</span>
                 </div>
               </div>
             </div>
           </GlassPanel>
         </section>
 
-        {/* 4. ACADEMIC STAGES (Rich Data) */}
+        {/* 4. DYNAMIC PATHWAYS */}
         <section className="flex flex-col gap-8">
           <div className="text-center max-w-2xl mx-auto mb-4">
-             <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-3">Academic Structure</h2>
-             <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">Curriculum Pathways</h3>
+             <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-3">{t("curriculumBadge")}</h2>
+             <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">{t("curriculumHeading")}</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -447,119 +398,93 @@ export default function Home() {
               <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
                 <BookOpen className="text-secondary w-6 h-6" />
               </div>
-              <h4 className="text-2xl font-black text-white uppercase mb-4">Early Years</h4>
+              <h4 className="text-2xl font-black text-white uppercase mb-4">{t("program1")}</h4>
               <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow">
-                Ages 3-5. We foster boundless curiosity in a play-based, nurturing environment designed to spark lifelong learning. Focus is placed on cognitive development, early literacy, and social-emotional growth.
+                {t("program1Desc")}
               </p>
-              <ul className="space-y-2 text-xs font-bold text-white/50 uppercase tracking-widest mb-6 border-t border-white/10 pt-4">
-                <li>• Phonics & Literacy</li>
-                <li>• Creative Arts</li>
-                <li>• Motor Skill Development</li>
-              </ul>
-              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">Learn More <ArrowRight size={12} className="ml-1" /></Button>
+              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">
+                {t("curriculumLink")} <ArrowRight size={12} className="ml-1" />
+              </Button>
             </GlassPanel>
 
             <GlassPanel className="p-8 flex flex-col h-full">
               <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
                 <Microscope className="text-secondary w-6 h-6" />
               </div>
-              <h4 className="text-2xl font-black text-white uppercase mb-4">Primary Phase</h4>
+              <h4 className="text-2xl font-black text-white uppercase mb-4">{t("program2")}</h4>
               <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow">
-                Grades 1-6. Building impenetrable academic core competencies alongside unbreakable character foundations. Introduction to scientific methods and global histories.
+                {t("program2Desc")}
               </p>
-              <ul className="space-y-2 text-xs font-bold text-white/50 uppercase tracking-widest mb-6 border-t border-white/10 pt-4">
-                <li>• Core Mathematics</li>
-                <li>• Integrated Science</li>
-                <li>• Ethiopian History</li>
-              </ul>
-              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">Learn More <ArrowRight size={12} className="ml-1" /></Button>
+              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">
+                {t("curriculumLink")} <ArrowRight size={12} className="ml-1" />
+              </Button>
             </GlassPanel>
 
             <GlassPanel className="p-8 flex flex-col h-full">
               <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
                 <Globe2 className="text-secondary w-6 h-6" />
               </div>
-              <h4 className="text-2xl font-black text-white uppercase mb-4">Secondary Prep</h4>
+              <h4 className="text-2xl font-black text-white uppercase mb-4">{t("program3")}</h4>
               <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow">
-                Grades 7-12. Rigorous university preparation featuring advanced STEM tracks, humanities, and elite global leadership programs designed for top-tier university placement.
+                {t("program3Desc")}
               </p>
-              <ul className="space-y-2 text-xs font-bold text-white/50 uppercase tracking-widest mb-6 border-t border-white/10 pt-4">
-                <li>• Advanced Chemistry & Physics</li>
-                <li>• Computer Science & Coding</li>
-                <li>• International Relations</li>
-              </ul>
-              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">Learn More <ArrowRight size={12} className="ml-1" /></Button>
+              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">
+                {t("curriculumLink")} <ArrowRight size={12} className="ml-1" />
+              </Button>
             </GlassPanel>
           </div>
         </section>
 
-        {/* 5. BENTO GRID: CAMPUS LIFE & EXTRACURRICULARS */}
+        {/* 5. ECOSYSTEM OF EXCELLENCE */}
         <section className="flex flex-col gap-8">
            <div className="flex flex-col md:flex-row justify-between items-end mb-4 border-b border-white/10 pb-6">
               <div>
-                <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-2">Holistic Development</h2>
-                <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">Beyond The Classroom</h3>
+                <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-2">{t("bentoBadge")}</h2>
+                <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">{t("bentoHeading")}</h3>
               </div>
-              <p className="text-white/60 max-w-sm text-sm">
-                A fully realized student requires physical vitality and creative expression.
-              </p>
            </div>
 
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-             <GlassPanel className="p-8 md:col-span-2 flex flex-col justify-end min-h-[300px] relative">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526676037777-05a232554f77?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 transition-opacity hover:opacity-30"></div>
-                <div className="relative z-10">
-                  <Trophy className="w-8 h-8 text-secondary mb-4" />
-                  <h4 className="text-2xl font-black text-white uppercase mb-2">Elite Athletics</h4>
-                  <p className="text-white/80 text-sm max-w-lg">Our Hawassa campus features Olympic-standard tracks, aquatic centers, and team sport facilities designed to build discipline and teamwork.</p>
-                </div>
-             </GlassPanel>
-
-             <GlassPanel className="p-8 flex flex-col justify-end min-h-[300px] relative">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?q=80&w=2080&auto=format&fit=crop')] bg-cover bg-center opacity-20 transition-opacity hover:opacity-30"></div>
-                <div className="relative z-10">
-                  <Palette className="w-8 h-8 text-secondary mb-4" />
-                  <h4 className="text-2xl font-black text-white uppercase mb-2">Fine Arts</h4>
-                  <p className="text-white/80 text-sm">Dedicated studios for visual arts, traditional Ethiopian crafts, and modern digital design.</p>
-                </div>
-             </GlassPanel>
-
-             <GlassPanel className="p-8 flex flex-col justify-end min-h-[300px] relative">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 transition-opacity hover:opacity-30"></div>
-                <div className="relative z-10">
-                  <Lightbulb className="w-8 h-8 text-secondary mb-4" />
-                  <h4 className="text-2xl font-black text-white uppercase mb-2">Innovation Hub</h4>
-                  <p className="text-white/80 text-sm">Makerspaces equipped with 3D printers, robotics kits, and software engineering tools.</p>
-                </div>
-             </GlassPanel>
-
-             <GlassPanel className="p-8 md:col-span-2 flex flex-col justify-center items-center text-center min-h-[300px]">
-                <ShieldCheck className="w-12 h-12 text-secondary mb-6" />
-                <h4 className="text-2xl font-black text-white uppercase mb-4">The Sankofa Standard</h4>
-                <p className="text-white/70 text-sm max-w-xl leading-relaxed">
-                  Every extracurricular activity is carefully mapped to our core values. We ensure that whether a student is on the field or in the lab, they are operating with integrity, respect, and a drive for excellence.
-                </p>
-             </GlassPanel>
+             <GlowCard className="p-8">
+               <ShieldCheck className="w-8 h-8 text-secondary mb-6" />
+               <h4 className="text-lg font-black text-white uppercase mb-3 tracking-wide">{t("bentoFeature1")}</h4>
+               <p className="text-white/60 text-sm leading-relaxed font-medium">
+                 {t("bentoFeature1Desc")}
+               </p>
+             </GlowCard>
+             <GlowCard className="p-8">
+               <Lightbulb className="w-8 h-8 text-white/50 mb-6" />
+               <h4 className="text-lg font-black text-white uppercase mb-3 tracking-wide">{t("bentoFeature2")}</h4>
+               <p className="text-white/60 text-sm leading-relaxed font-medium">
+                 {t("bentoFeature2Desc")}
+               </p>
+             </GlowCard>
+             <GlowCard className="p-8">
+               <Globe2 className="w-8 h-8 text-white/50 mb-6" />
+               <h4 className="text-lg font-black text-white uppercase mb-3 tracking-wide">{t("bentoFeature3")}</h4>
+               <p className="text-white/60 text-sm leading-relaxed font-medium">
+                 {t("bentoFeature3Desc")}
+               </p>
+             </GlowCard>
            </div>
         </section>
 
-        {/* 6. ADMISSIONS TIMELINE (Elongated Data) */}
+        {/* 6. ADMISSIONS PROCESS */}
         <section>
           <GlassPanel className="p-10 md:p-16">
             <div className="text-center mb-12">
-               <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-2">Join Our Community</h2>
-               <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">Admissions Process</h3>
+               <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-2">{t("timelineBadge")}</h2>
+               <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">{t("timelineHeading")}</h3>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-              {/* Decorative Line connecting steps */}
               <div className="hidden md:block absolute top-6 left-10 right-10 h-[1px] bg-white/20"></div>
               
               {[
-                { step: "01", title: "Inquiry", desc: "Submit an online inquiry form and download our comprehensive 2026 academic prospectus." },
-                { step: "02", title: "Campus Tour", desc: "Schedule a guided tour of our Hawassa campus to experience our facilities firsthand." },
-                { step: "03", title: "Assessment", desc: "Students complete age-appropriate academic and behavioral assessments." },
-                { step: "04", title: "Enrollment", desc: "Family interview with the Head of School, followed by final registration." }
+                { step: "01", title: t("step1"), desc: t("step1Desc") },
+                { step: "02", title: t("step2"), desc: t("step2Desc") },
+                { step: "03", title: t("step3"), desc: t("step3Desc") },
+                { step: "04", title: t("step4"), desc: t("step4Desc") }
               ].map((item, i) => (
                  <div key={i} className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left space-y-4">
                     <div className="w-12 h-12 rounded-full bg-primary border-2 border-secondary flex items-center justify-center text-secondary font-black shadow-[0_0_15px_rgba(212,175,55,0.4)]">
@@ -573,7 +498,7 @@ export default function Home() {
 
             <div className="mt-16 flex justify-center border-t border-white/10 pt-10">
                <Button asChild size="lg" className="rounded-xl bg-secondary text-primary hover:bg-white hover:text-primary font-bold tracking-widest uppercase text-xs h-14 px-12 transition-all duration-300">
-                  <Link href="/portal">Start Online Application</Link>
+                  <Link href="/portal">{t("stepCTA")}</Link>
                </Button>
             </div>
           </GlassPanel>
