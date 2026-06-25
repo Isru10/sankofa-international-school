@@ -375,10 +375,42 @@ export default function Home() {
         <section>
           <GlassPanel className="p-8 md:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-5 relative h-[500px] rounded-xl overflow-hidden border border-white/10">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" alt="Head of School" className="absolute inset-0 w-full h-full object-cover" />
+              {/* <div className="lg:col-span-5 relative h-[500px] rounded-xl overflow-hidden border border-white/10">
+                <img src="/tekola-cheru.png" alt="Head of School" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
-              </div>
+              </div> */}
+              
+              {/* OPTION 2 */}
+              
+              {/* <div className="lg:col-span-5 relative h-[500px] rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] flex items-center justify-center">
+  
+  <img 
+    src="/tekola-cheru.png" 
+    alt="" 
+    className="absolute inset-0 w-full h-full object-cover blur-lg opacity-30 scale-110 pointer-events-none" 
+  />
+  
+  
+  <img 
+    src="/tekola-cheru.png" 
+    alt="Head of School" 
+    className="relative z-10 max-h-full max-w-full object-contain" 
+  />
+  
+  
+  <div className="absolute inset-0 bg-gradient-to-t from-[#00152e]/80 via-transparent to-transparent z-20" />
+  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay z-20" />
+</div> */}
+
+{/* OPTION 3 */}
+
+<div className="lg:col-span-5 rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] flex items-center justify-center">
+  <img 
+    src="/tekola-cheru.png" 
+    alt="Head of School" 
+    className="w-full h-auto max-h-[500px] object-contain block mx-auto" 
+  />
+</div>
               <div className="lg:col-span-7 flex flex-col space-y-6">
                 <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase flex items-center gap-2">
                   <div className="w-6 h-[1px] bg-secondary" /> Welcome Address
@@ -395,8 +427,8 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="pt-6 border-t border-white/10 mt-6">
-                  <span className="block font-serif text-2xl font-black text-white">Dr. Elias Tessema</span>
-                  <span className="block text-xs font-medium text-secondary uppercase tracking-widest mt-1">Head of School</span>
+                  <span className="block font-serif text-2xl font-black text-white">Mr.Tekola  Cheru</span>
+                  <span className="block text-xs font-medium text-secondary uppercase tracking-widest mt-1">Founder and Head of School</span>
                 </div>
               </div>
             </div>

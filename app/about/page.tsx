@@ -120,7 +120,7 @@ export default function About() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { name: "Dr. Elias Tessema", role: "Head of School", bio: "Ph.D. in Educational Leadership from Harvard University.", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" },
+              { name: "Mr. Tekola Cheru", role: "Head of School", bio: "Ph.D. in Educational Leadership from Harvard University.", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" },
               { name: "Wzr. Aster Menelik", role: "Academic Director", bio: "M.Ed. with 15+ years managing top-tier international institutions.", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" },
               { name: "Ato Kassa Belay", role: "Director of Admissions", bio: "Dedicated advisor assisting families in Hawassa for a decade.", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" },
               { name: "Dr. Selamawit Hailu", role: "STEM Lead Practitioner", bio: "Specialist in robotics curricula and modern physical sciences.", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" }

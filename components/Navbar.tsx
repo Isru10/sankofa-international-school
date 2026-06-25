@@ -165,7 +165,7 @@ export default function Navbar() {
                 <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-secondary hover:translate-x-2 transition-all duration-300">About Us</Link>
                 <Link href="/academics" onClick={() => setIsOpen(false)} className="hover:text-secondary hover:translate-x-2 transition-all duration-300">Academics</Link>
                 <Link href="/admissions" onClick={() => setIsOpen(false)} className="hover:text-secondary hover:translate-x-2 transition-all duration-300">Admissions</Link>
-                <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-secondary hover:translate-x-2 transition-all duration-300">Contact Us</Link>
+                <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-secondary hover:translate-x-2 transition-all duration-300">Contact Us</Link>
               </div>
 
               <div className="mt-auto pt-8 border-t border-primary/10 flex flex-col gap-4">
