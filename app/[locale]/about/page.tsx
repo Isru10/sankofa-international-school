@@ -156,15 +156,15 @@
 //   );
 // }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> ced3080c9562531d750cfa698a505c61674c5de7
+
+
+
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-<<<<<<< HEAD
 import { CheckCircle2, ChevronRight } from "lucide-react";
 
 // The Universal Glass Panel Component
@@ -173,11 +173,6 @@ const GlassPanel = ({ children, className = "", id = "" }: { children: React.Rea
     <div className="relative z-10 h-full">{children}</div>
   </div>
 );
-=======
-import { Link } from "@/i18n/routing";
-import { Award, Target, Shield, Milestone } from "lucide-react";
-
->>>>>>> ced3080c9562531d750cfa698a505c61674c5de7
 
 export default function About() {
   const t = useTranslations("About");
@@ -192,55 +187,38 @@ export default function About() {
   }, []);
 
   return (
-<<<<<<< HEAD
     <div className="relative w-full min-h-screen bg-[#00152e] text-white selection:bg-secondary selection:text-primary pb-32 pt-24 scroll-smooth">
-=======
-    <div className="relative w-full min-h-screen bg-[#00152e] text-white selection:bg-secondary selection:text-primary pb-32 pt-24">
->>>>>>> ced3080c9562531d750cfa698a505c61674c5de7
       
       {/* Universal Parallax Background */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div 
-<<<<<<< HEAD
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"
           style={{ transform: `scale(${1 + scrollY * 0.0002})` }}
         />
         <div className="absolute inset-0 bg-primary/95 mix-blend-multiply" />
         <div className="absolute top-[20%] right-[10%] w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px]" style={{ transform: `translateY(${scrollY * -0.1}px)` }} />
         <div className="absolute bottom-[10%] left-[5%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px]" style={{ transform: `translateY(${scrollY * -0.2}px)` }} />
-=======
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"
-          style={{ transform: `scale(${1 + scrollY * 0.0002})` }}
-        />
-        <div className="absolute inset-0 bg-primary/90 mix-blend-multiply" />
->>>>>>> ced3080c9562531d750cfa698a505c61674c5de7
       </div>
 
       <main className="relative z-10 w-full max-w-[1300px] mx-auto px-6 lg:px-12 flex flex-col gap-24 pt-16">
         
         {/* Page Hero */}
         <section>
-<<<<<<< HEAD
           <div className="text-center max-w-4xl mx-auto flex flex-col items-center">
             <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tight mb-4">
               {t("pageTitle")}
-=======
-          <div className="relative overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-xl p-10 md:p-16 text-center max-w-4xl mx-auto flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight mb-4">
-              {t("title")}
->>>>>>> ced3080c9562531d750cfa698a505c61674c5de7
             </h1>
           </div>
         </section>
 
-<<<<<<< HEAD
         {/* 1. Chairman’s Welcome */}
         <section>
           <GlassPanel id="welcome" className="p-10 md:p-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
               <div className="lg:col-span-4 flex flex-col items-center text-center">
                 <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-secondary/40 shadow-2xl mb-6 relative">
-                  <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" alt="Mr. Tekola Cheru" className="w-full h-full object-cover" />
+                  {/* THIS IS THE ONLY LINE CHANGED - Made perfectly responsive, circular, and centered */}
+                  <img src="/tekola-cheru.png" alt="Mr. Tekola Cheru" className="w-full h-full object-cover object-center" />
                 </div>
                 <h4 className="text-2xl font-black text-white">{t("chairName")}</h4>
                 <p className="text-secondary font-bold text-xs uppercase tracking-widest mt-1">{t("chairTitle")}</p>
@@ -517,47 +495,6 @@ export default function About() {
               </div>
             </div>
           </GlassPanel>
-=======
-        {/* The Sankofa Philosophy */}
-        <section>
-          <div className="relative overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-xl p-8 md:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-7 flex flex-col space-y-6">
-                <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase flex items-center gap-2">
-                  <div className="w-6 h-[1px] bg-secondary" /> {t("philosophy")}
-                </h2>
-                <h3 className="text-3xl font-black text-white uppercase tracking-tight">{t("philosophyHeading")}</h3>
-                <p className="text-white/70 text-base leading-relaxed">{t("philosophyText")}</p>
-              </div>
-              <div className="lg:col-span-5 relative h-[350px] rounded-xl overflow-hidden border border-white/10 flex items-center justify-center bg-white/[0.02]">
-                <div className="text-center p-8">
-                  <Milestone strokeWidth={1} className="w-32 h-32 text-secondary/30 mx-auto mb-4" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Mission, Vision & Values Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="relative overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-xl p-8">
-            <Target className="w-8 h-8 text-secondary mb-6" />
-            <h4 className="text-xl font-black text-white uppercase mb-4">{t("mission")}</h4>
-            <p className="text-white/70 text-sm leading-relaxed">{t("missionText")}</p>
-          </div>
-
-          <div className="relative overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-xl p-8">
-            <Award className="w-8 h-8 text-secondary mb-6" />
-            <h4 className="text-xl font-black text-white uppercase mb-4">{t("vision")}</h4>
-            <p className="text-white/70 text-sm leading-relaxed">{t("visionText")}</p>
-          </div>
-
-          <div className="relative overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-xl p-8">
-            <Shield className="w-8 h-8 text-secondary mb-6" />
-            <h4 className="text-xl font-black text-white uppercase mb-4">{t("values")}</h4>
-            <p className="text-white/70 text-sm leading-relaxed">{t("valuesText")}</p>
-          </div>
->>>>>>> ced3080c9562531d750cfa698a505c61674c5de7
         </section>
 
       </main>

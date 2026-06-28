@@ -108,7 +108,7 @@ export default function StreamPage() {
                <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4">Broadcast Offline</h3>
                <p className="text-white/60 mb-8">We are currently unable to retrieve the video feed. Please visit our official channel directly.</p>
                <Button asChild className="rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold uppercase tracking-widest text-xs h-12 px-8">
-                  <a href="https://youtube.com/c/CambridgeAcademyEthiopia" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.youtube.com/@Sankofaschoolsystem" target="_blank" rel="noopener noreferrer">
                     {t("ctaBtn")} <ExternalLink size={14} className="ml-2" />
                   </a>
                </Button>

@@ -368,7 +368,7 @@ export default function Home() {
           <GlassPanel className="p-8 md:p-14 lg:p-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-center">
               <div className="lg:col-span-6 xl:col-span-5 relative h-[500px] lg:h-[650px] rounded-xl overflow-hidden border border-white/10 group">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" alt="Ethos" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src="/students2.png" alt="Ethos" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-primary/30 mix-blend-overlay"></div>
               </div>
               <div className="lg:col-span-6 xl:col-span-7 flex flex-col space-y-8">
@@ -476,7 +476,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto min-h-[600px] lg:h-[750px]">
               <div className="relative rounded-xl overflow-hidden group lg:col-span-2 lg:row-span-2 min-h-[300px]">
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Library" />
+                <img src="/micro.png" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Library" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#00152e] via-transparent to-transparent opacity-90" />
                 <div className="absolute bottom-8 left-8">
                   <h4 className="text-3xl font-black text-white uppercase">{t("facImg1")}</h4>
@@ -484,7 +484,7 @@ export default function Home() {
               </div>
               
               <div className="relative rounded-xl overflow-hidden group min-h-[250px]">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Labs" />
+                <img src="library1.png" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Labs" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#00152e] via-transparent to-transparent opacity-90" />
                 <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
                   <h4 className="text-xl font-black text-white uppercase">{t("facImg2")}</h4>
@@ -492,7 +492,7 @@ export default function Home() {
               </div>
 
               <div className="relative rounded-xl overflow-hidden group min-h-[250px]">
-                <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Sports" />
+                <img src="/students1.png" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Sports" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#00152e] via-transparent to-transparent opacity-90" />
                 <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
                   <h4 className="text-xl font-black text-white uppercase">{t("facImg3")}</h4>
@@ -554,7 +554,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="relative h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
-                   <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover" alt="Student Life" />
+                   <img src="/sankofa-compound.gif" className="absolute inset-0 w-full h-full object-cover" alt="Student Life" />
                    <div className="absolute inset-0 bg-primary/30 mix-blend-overlay"></div>
                 </div>
              </div>
