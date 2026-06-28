@@ -240,14 +240,12 @@
 //     </div>
 //   );
 // }
-
-
 "use client";
 
 import { useEffect, useState, MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-import { ArrowRight, BookOpen, Globe2, Lightbulb, ShieldCheck, Play, Calendar, Users, Trophy, Palette, Microscope } from "lucide-react";
+import { ArrowRight, BookOpen, Globe2, Lightbulb, ShieldCheck, Play, Users, Trophy, Microscope, Clock, MapPin, Star, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const GlassPanel = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
@@ -295,190 +293,284 @@ export default function Home() {
   return (
     <div className="relative w-full min-h-screen bg-[#00152e] text-white selection:bg-secondary selection:text-primary pb-32">
       
-      {/* Universal Parallax Background */}
+      {/* Universal Parallax Background (Affects sections below the Hero) */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"
           style={{ transform: `scale(${1 + scrollY * 0.0002})` }}
         />
         <div className="absolute inset-0 bg-primary/90 mix-blend-multiply" />
-        
-        <div 
-          className="absolute top-[10%] left-[5%] w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[120px]"
-          style={{ transform: `translateY(${scrollY * -0.2}px)` }}
-        />
-        <div 
-          className="absolute top-[40%] right-[10%] w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px]"
-          style={{ transform: `translateY(${scrollY * -0.1}px)` }}
-        />
+        <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[120px]" style={{ transform: `translateY(${scrollY * -0.2}px)` }} />
+        <div className="absolute top-[40%] right-[10%] w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px]" style={{ transform: `translateY(${scrollY * -0.1}px)` }} />
       </div>
 
-      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-6 lg:px-12 flex flex-col gap-24 pt-32">
+      {/* 1. EDGE-TO-EDGE HERO SECTION WITH GIF BACKGROUND */}
+      <section className="relative z-10 w-full min-h-[95vh] flex items-center justify-center pt-32 pb-20 px-6 lg:px-12 overflow-hidden border-b border-white/5">
+        
+        {/* GIF BACKGROUND IMPLEMENTATION */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none"
+          style={{ backgroundImage: `url('/sankofa-compound.gif')` }}
+        />
+        
+        {/* Lightened overlay so the GIF is clearly visible, with a bottom fade to blend smoothly into the page below */}
+        <div className="absolute inset-0 z-0 bg-[#00152e]/40 mix-blend-multiply pointer-events-none" />
+        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#00152e] via-[#00152e]/30 to-transparent pointer-events-none" />
 
-        {/* 1. HERO SECTION */}
-        <section className="flex items-center justify-center min-h-[75vh] pt-12">
-          <GlassPanel className="p-10 md:p-16 text-center max-w-4xl w-full flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-[1.1] mb-6">
-              {t("title")}
-            </h1>
-            <p className="text-white/80 text-base md:text-lg font-medium leading-relaxed max-w-3xl mb-10">
-              {t("desc")}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Button asChild size="lg" className="rounded-xl bg-secondary text-primary hover:bg-white hover:text-primary font-bold tracking-widest uppercase text-xs h-12 px-8 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
-                <Link href="/admissions">{t("ctaBegin")} <ArrowRight size={14} className="ml-2" /></Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-xl border-white/20 text-primary hover:text-white hover:bg-white/10 hover:border-white/40 font-bold tracking-widest uppercase text-xs h-12 px-8 backdrop-blur-md transition-all duration-300">
-                <Link href="/about"><Play size={14} className="mr-2" /> {t("ctaTour")}</Link>
-              </Button>
-            </div>
-          </GlassPanel>
-        </section>
+        {/* Hero Content (Removed GlassPanel so it sits directly on the page, added drop shadows for readability) */}
+        <div className="relative z-10 text-center max-w-5xl w-full flex flex-col items-center mt-10 md:mt-0">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tight leading-[1.1] mb-6 drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
+            {t("title")}
+          </h1>
+          <p className="text-white/95 text-base md:text-xl font-medium leading-relaxed max-w-3xl mb-10 drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]">
+            {t("desc")}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
+            <Button asChild size="lg" className="rounded-xl bg-secondary text-primary hover:bg-white hover:text-primary font-bold tracking-widest uppercase text-sm h-14 px-10 transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.4)]">
+              <Link href="/admissions">{t("ctaBegin")} <ArrowRight size={16} className="ml-2" /></Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-xl border-white/40 text-white bg-black/20 hover:bg-white/20 hover:border-white/60 font-bold tracking-widest uppercase text-sm h-14 px-10 backdrop-blur-md transition-all duration-300">
+              <Link href="/about"><Play size={16} className="mr-2" /> {t("ctaTour")}</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* EXPANDED MAIN CONTAINER (Wider Layout for rest of content) */}
+      <main className="relative z-10 w-full max-w-[1600px] 2xl:max-w-[1800px] mx-auto px-6 lg:px-12 xl:px-16 flex flex-col gap-28 pt-24">
 
         {/* 2. BALANCED STATS */}
         <section>
-          <GlassPanel className="p-8">
+          <GlassPanel className="p-8 lg:p-10">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4 items-center justify-center w-full">
               <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
-                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">100%</span>
-                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("placement")}</span>
+                <span className="text-5xl md:text-6xl font-black text-secondary tracking-tight">{t("stat1Val")}</span>
+                <span className="text-xs font-bold uppercase tracking-[0.15em] text-white/70 mt-3">{t("stat1Label")}</span>
               </div>
               <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
-                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">15+</span>
-                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("partnerships")}</span>
+                <span className="text-5xl md:text-6xl font-black text-secondary tracking-tight">{t("stat2Val")}</span>
+                <span className="text-xs font-bold uppercase tracking-[0.15em] text-white/70 mt-3">{t("stat2Label")}</span>
               </div>
               <div className="flex flex-col items-center justify-center text-center w-full lg:border-r border-white/10 last:border-0">
-                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">12:1</span>
-                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("ratio")}</span>
+                <span className="text-5xl md:text-6xl font-black text-secondary tracking-tight">{t("stat3Val")}</span>
+                <span className="text-xs font-bold uppercase tracking-[0.15em] text-white/70 mt-3">{t("stat3Label")}</span>
               </div>
               <div className="flex flex-col items-center justify-center text-center w-full last:border-0">
-                <span className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Top 1%</span>
-                <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/70 mt-2">{t("excellence")}</span>
+                <span className="text-5xl md:text-6xl font-black text-secondary tracking-tight">{t("stat4Val")}</span>
+                <span className="text-xs font-bold uppercase tracking-[0.15em] text-white/70 mt-3">{t("stat4Label")}</span>
               </div>
             </div>
           </GlassPanel>
         </section>
 
-        {/* 3. ETHOS SECTION */}
+        {/* 3. ETHOS & WELCOME */}
         <section>
-          <GlassPanel className="p-8 md:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-5 relative h-[500px] rounded-xl overflow-hidden border border-white/10">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" alt="Ethos" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+          <GlassPanel className="p-8 md:p-14 lg:p-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-center">
+              <div className="lg:col-span-6 xl:col-span-5 relative h-[500px] lg:h-[650px] rounded-xl overflow-hidden border border-white/10 group">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" alt="Ethos" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-primary/30 mix-blend-overlay"></div>
               </div>
-              <div className="lg:col-span-7 flex flex-col space-y-6">
-                <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase flex items-center gap-2">
-                  <div className="w-6 h-[1px] bg-secondary" /> {t("ethosBadge")}
+              <div className="lg:col-span-6 xl:col-span-7 flex flex-col space-y-8">
+                <h2 className="text-xs lg:text-sm font-bold tracking-[0.2em] text-secondary uppercase flex items-center gap-3">
+                  <div className="w-8 h-[1px] bg-secondary" /> {t("ethosBadge")}
                 </h2>
-                <h3 className="text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
+                <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
                   {t("ethosHeading")}
                 </h3>
-                <p className="text-white/70 text-base leading-relaxed">
-                  {t("ethosDesc")}
-                </p>
-                <div className="pt-6 border-t border-white/10 mt-6">
-                  <span className="block font-serif text-2xl font-black text-white">Mr. Tekola Cheru</span>
-                  <span className="block text-xs font-medium text-secondary uppercase tracking-widest mt-1">Head of School</span>
+                <div className="space-y-5 text-white/80 text-lg font-light leading-relaxed">
+                  {t.raw("ethosParagraphs").map((p: string, i: number) => <p key={i}>{p}</p>)}
+                </div>
+                <div className="pt-6">
+                  <Button asChild variant="link" className="text-secondary p-0 hover:text-white uppercase tracking-widest text-sm font-bold transition-colors">
+                    <Link href="/about">{t("ethosLink")} <ArrowRight size={14} className="ml-2" /></Link>
+                  </Button>
                 </div>
               </div>
             </div>
           </GlassPanel>
         </section>
 
-        {/* 4. DYNAMIC PATHWAYS */}
-        <section className="flex flex-col gap-8">
-          <div className="text-center max-w-2xl mx-auto mb-4">
-             <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-3">{t("curriculumBadge")}</h2>
-             <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">{t("curriculumHeading")}</h3>
+        {/* 4. QUICK FACTS TABLE */}
+        <section>
+          <GlassPanel className="p-10 md:p-16 lg:p-20">
+            <div className="text-center mb-12">
+               <h2 className="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-3">{t("qfBadge")}</h2>
+               <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">{t("qfHeading")}</h3>
+               <p className="text-white/70 text-base mt-4 max-w-3xl mx-auto">{t("qfDesc")}</p>
+            </div>
+            <div className="overflow-x-auto bg-white/5 border border-white/10 rounded-xl">
+              <table className="w-full text-left border-collapse min-w-[700px]">
+                <thead>
+                  <tr className="border-b border-white/20 text-sm font-bold text-white/50 uppercase tracking-widest bg-white/5">
+                    <th className="p-8 w-1/3">{t("qfCol1")}</th>
+                    <th className="p-8 w-2/3">{t("qfCol2")}</th>
+                  </tr>
+                </thead>
+                <tbody className="text-base font-semibold text-white/80 divide-y divide-white/10">
+                  {t.raw("qfRows").map((row: { category: string, detail: string }, i: number) => (
+                    <tr key={i} className="hover:bg-white/5 transition-colors">
+                      <td className="p-8 font-black text-white">{row.category}</td>
+                      <td className="p-8 text-secondary tracking-wide">{row.detail}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </GlassPanel>
+        </section>
+
+        {/* 5. DYNAMIC PATHWAYS */}
+        <section className="flex flex-col gap-10">
+          <div className="text-center max-w-3xl mx-auto mb-6">
+             <h2 className="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-4">{t("curriculumBadge")}</h2>
+             <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">{t("curriculumHeading")}</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <GlassPanel className="p-8 flex flex-col h-full">
-              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                <BookOpen className="text-secondary w-6 h-6" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <GlassPanel className="p-10 flex flex-col h-full">
+              <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-8">
+                <BookOpen className="text-secondary w-7 h-7" />
               </div>
-              <h4 className="text-2xl font-black text-white uppercase mb-4">{t("program1")}</h4>
-              <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow">
-                {t("program1Desc")}
-              </p>
-              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">
-                {t("curriculumLink")} <ArrowRight size={12} className="ml-1" />
+              <h4 className="text-3xl font-black text-white uppercase mb-4">{t("program1")}</h4>
+              <p className="text-white/70 text-base leading-relaxed mb-8 flex-grow">{t("program1Desc")}</p>
+              <Button asChild variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-sm">
+                <Link href="/academics">{t("curriculumLink")} <ArrowRight size={14} className="ml-1" /></Link>
               </Button>
             </GlassPanel>
 
-            <GlassPanel className="p-8 flex flex-col h-full">
-              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                <Microscope className="text-secondary w-6 h-6" />
+            <GlassPanel className="p-10 flex flex-col h-full">
+              <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-8">
+                <Microscope className="text-secondary w-7 h-7" />
               </div>
-              <h4 className="text-2xl font-black text-white uppercase mb-4">{t("program2")}</h4>
-              <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow">
-                {t("program2Desc")}
-              </p>
-              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">
-                {t("curriculumLink")} <ArrowRight size={12} className="ml-1" />
+              <h4 className="text-3xl font-black text-white uppercase mb-4">{t("program2")}</h4>
+              <p className="text-white/70 text-base leading-relaxed mb-8 flex-grow">{t("program2Desc")}</p>
+              <Button asChild variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-sm">
+                <Link href="/academics">{t("curriculumLink")} <ArrowRight size={14} className="ml-1" /></Link>
               </Button>
             </GlassPanel>
 
-            <GlassPanel className="p-8 flex flex-col h-full">
-              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                <Globe2 className="text-secondary w-6 h-6" />
+            <GlassPanel className="p-10 flex flex-col h-full">
+              <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-8">
+                <Globe2 className="text-secondary w-7 h-7" />
               </div>
-              <h4 className="text-2xl font-black text-white uppercase mb-4">{t("program3")}</h4>
-              <p className="text-white/70 text-sm leading-relaxed mb-6 flex-grow">
-                {t("program3Desc")}
-              </p>
-              <Button variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-xs">
-                {t("curriculumLink")} <ArrowRight size={12} className="ml-1" />
+              <h4 className="text-3xl font-black text-white uppercase mb-4">{t("program3")}</h4>
+              <p className="text-white/70 text-base leading-relaxed mb-8 flex-grow">{t("program3Desc")}</p>
+              <Button asChild variant="link" className="text-secondary p-0 h-auto justify-start uppercase tracking-widest text-sm">
+                <Link href="/academics">{t("curriculumLink")} <ArrowRight size={14} className="ml-1" /></Link>
               </Button>
             </GlassPanel>
           </div>
         </section>
 
-        {/* 5. ECOSYSTEM OF EXCELLENCE */}
-        <section className="flex flex-col gap-8">
-           <div className="flex flex-col md:flex-row justify-between items-end mb-4 border-b border-white/10 pb-6">
+        {/* 6. CAMPUS FACILITIES */}
+        <section>
+          <GlassPanel className="p-10 md:p-16 lg:p-20">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
               <div>
-                <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-2">{t("bentoBadge")}</h2>
-                <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">{t("bentoHeading")}</h3>
+                <h2 className="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-3">{t("facBadge")}</h2>
+                <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">{t("facHeading")}</h3>
+              </div>
+              <p className="text-white/70 text-base max-w-md">{t("facDesc")}</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto min-h-[600px] lg:h-[750px]">
+              <div className="relative rounded-xl overflow-hidden group lg:col-span-2 lg:row-span-2 min-h-[300px]">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Library" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#00152e] via-transparent to-transparent opacity-90" />
+                <div className="absolute bottom-8 left-8">
+                  <h4 className="text-3xl font-black text-white uppercase">{t("facImg1")}</h4>
+                </div>
+              </div>
+              
+              <div className="relative rounded-xl overflow-hidden group min-h-[250px]">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Labs" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#00152e] via-transparent to-transparent opacity-90" />
+                <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
+                  <h4 className="text-xl font-black text-white uppercase">{t("facImg2")}</h4>
+                </div>
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden group min-h-[250px]">
+                <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Sports" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#00152e] via-transparent to-transparent opacity-90" />
+                <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
+                  <h4 className="text-xl font-black text-white uppercase">{t("facImg3")}</h4>
+                </div>
+              </div>
+            </div>
+          </GlassPanel>
+        </section>
+
+        {/* 7. ECOSYSTEM OF EXCELLENCE (Bento Grid) */}
+        <section className="flex flex-col gap-10">
+           <div className="flex flex-col md:flex-row justify-between items-end mb-6 border-b border-white/10 pb-8">
+              <div>
+                <h2 className="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-3">{t("bentoBadge")}</h2>
+                <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">{t("bentoHeading")}</h3>
               </div>
            </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-             <GlowCard className="p-8">
-               <ShieldCheck className="w-8 h-8 text-secondary mb-6" />
-               <h4 className="text-lg font-black text-white uppercase mb-3 tracking-wide">{t("bentoFeature1")}</h4>
-               <p className="text-white/60 text-sm leading-relaxed font-medium">
-                 {t("bentoFeature1Desc")}
-               </p>
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+             <GlowCard className="p-10">
+               <ShieldCheck className="w-10 h-10 text-secondary mb-8" />
+               <h4 className="text-xl font-black text-white uppercase mb-4 tracking-wide">{t("bentoFeature1")}</h4>
+               <p className="text-white/70 text-base leading-relaxed font-light">{t("bentoFeature1Desc")}</p>
              </GlowCard>
-             <GlowCard className="p-8">
-               <Lightbulb className="w-8 h-8 text-white/50 mb-6" />
-               <h4 className="text-lg font-black text-white uppercase mb-3 tracking-wide">{t("bentoFeature2")}</h4>
-               <p className="text-white/60 text-sm leading-relaxed font-medium">
-                 {t("bentoFeature2Desc")}
-               </p>
+             <GlowCard className="p-10">
+               <Star className="w-10 h-10 text-white/50 mb-8" />
+               <h4 className="text-xl font-black text-white uppercase mb-4 tracking-wide">{t("bentoFeature2")}</h4>
+               <p className="text-white/70 text-base leading-relaxed font-light">{t("bentoFeature2Desc")}</p>
              </GlowCard>
-             <GlowCard className="p-8">
-               <Globe2 className="w-8 h-8 text-white/50 mb-6" />
-               <h4 className="text-lg font-black text-white uppercase mb-3 tracking-wide">{t("bentoFeature3")}</h4>
-               <p className="text-white/60 text-sm leading-relaxed font-medium">
-                 {t("bentoFeature3Desc")}
-               </p>
+             <GlowCard className="p-10">
+               <Globe2 className="w-10 h-10 text-white/50 mb-8" />
+               <h4 className="text-xl font-black text-white uppercase mb-4 tracking-wide">{t("bentoFeature3")}</h4>
+               <p className="text-white/70 text-base leading-relaxed font-light">{t("bentoFeature3Desc")}</p>
              </GlowCard>
            </div>
         </section>
 
-        {/* 6. ADMISSIONS PROCESS */}
+        {/* 8. STUDENT LIFE */}
         <section>
-          <GlassPanel className="p-10 md:p-16">
-            <div className="text-center mb-12">
-               <h2 className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-2">{t("timelineBadge")}</h2>
-               <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">{t("timelineHeading")}</h3>
+          <GlassPanel className="p-10 md:p-16 lg:p-20 bg-white/[0.05]">
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <h2 className="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-3">{t("lifeBadge")}</h2>
+                  <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight mb-8">{t("lifeHeading")}</h3>
+                  <p className="text-white/80 text-lg leading-relaxed font-light mb-10">{t("lifeDesc")}</p>
+                  
+                  <div className="space-y-8">
+                    {t.raw("lifeFeatures").map((feat: { title: string, text: string }, i: number) => (
+                      <div key={i} className="flex gap-5">
+                        <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 border border-secondary/30">
+                          <Users size={20} className="text-secondary" />
+                        </div>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-base mb-2">{feat.title}</h4>
+                          <p className="text-white/60 text-sm leading-relaxed">{feat.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
+                   <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover" alt="Student Life" />
+                   <div className="absolute inset-0 bg-primary/30 mix-blend-overlay"></div>
+                </div>
+             </div>
+          </GlassPanel>
+        </section>
+
+        {/* 9. ADMISSIONS PROCESS */}
+        <section>
+          <GlassPanel className="p-10 md:p-16 lg:p-20">
+            <div className="text-center mb-16">
+               <h2 className="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-3">{t("timelineBadge")}</h2>
+               <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">{t("timelineHeading")}</h3>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-              <div className="hidden md:block absolute top-6 left-10 right-10 h-[1px] bg-white/20"></div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-10 relative">
+              <div className="hidden md:block absolute top-7 left-12 right-12 h-[1px] bg-white/20"></div>
               
               {[
                 { step: "01", title: t("step1"), desc: t("step1Desc") },
@@ -486,22 +578,35 @@ export default function Home() {
                 { step: "03", title: t("step3"), desc: t("step3Desc") },
                 { step: "04", title: t("step4"), desc: t("step4Desc") }
               ].map((item, i) => (
-                 <div key={i} className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-primary border-2 border-secondary flex items-center justify-center text-secondary font-black shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                 <div key={i} className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left space-y-5">
+                    <div className="w-14 h-14 rounded-full bg-primary border-2 border-secondary flex items-center justify-center text-secondary font-black text-lg shadow-[0_0_20px_rgba(212,175,55,0.4)]">
                       {item.step}
                     </div>
-                    <h4 className="text-xl font-black text-white uppercase">{item.title}</h4>
-                    <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
+                    <h4 className="text-2xl font-black text-white uppercase">{item.title}</h4>
+                    <p className="text-white/60 text-base leading-relaxed">{item.desc}</p>
                  </div>
               ))}
             </div>
-
-            <div className="mt-16 flex justify-center border-t border-white/10 pt-10">
-               <Button asChild size="lg" className="rounded-xl bg-secondary text-primary hover:bg-white hover:text-primary font-bold tracking-widest uppercase text-xs h-14 px-12 transition-all duration-300">
-                  <Link href="/portal">{t("stepCTA")}</Link>
-               </Button>
-            </div>
           </GlassPanel>
+        </section>
+
+        {/* 10. FINAL CTA BANNER */}
+        <section>
+          <div className="relative overflow-hidden bg-secondary text-primary rounded-xl p-14 md:p-24 text-center shadow-2xl">
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80')] bg-cover bg-center opacity-10 mix-blend-multiply" />
+            <div className="relative z-10 max-w-4xl mx-auto space-y-10">
+              <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tight">{t("ctaFinalHeading")}</h2>
+              <p className="text-primary/80 font-medium text-xl md:text-2xl leading-relaxed">{t("ctaFinalDesc")}</p>
+              <div className="flex flex-col sm:flex-row gap-5 justify-center pt-6">
+                <Button asChild size="lg" className="rounded-xl bg-primary text-white hover:bg-[#00152e] font-bold tracking-widest uppercase text-sm h-16 px-12 transition-all duration-300 shadow-xl">
+                  <Link href="/portal">{t("ctaFinalBtn1")}</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="rounded-xl border-primary text-primary hover:bg-primary hover:text-white font-bold tracking-widest uppercase text-sm h-16 px-12 transition-all duration-300">
+                  <Link href="/contact">{t("ctaFinalBtn2")}</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
         </section>
 
       </main>
