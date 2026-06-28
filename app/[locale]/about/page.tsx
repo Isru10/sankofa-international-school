@@ -218,7 +218,7 @@ export default function About() {
               <div className="lg:col-span-4 flex flex-col items-center text-center">
                 <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-secondary/40 shadow-2xl mb-6 relative">
                   {/* THIS IS THE ONLY LINE CHANGED - Made perfectly responsive, circular, and centered */}
-                  <img src="/tekola-cheru.png" alt="Mr. Tekola Cheru" className="w-full h-full object-cover object-center" />
+                  <img src="/tekola cheru.png" alt="Mr. Tekola Cheru" className="w-full h-full object-cover object-center" />
                 </div>
                 <h4 className="text-2xl font-black text-white">{t("chairName")}</h4>
                 <p className="text-secondary font-bold text-xs uppercase tracking-widest mt-1">{t("chairTitle")}</p>

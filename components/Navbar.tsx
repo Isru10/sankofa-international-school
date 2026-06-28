@@ -157,7 +157,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-4 group">
           <div className="bg-primary text-secondary font-serif text-xl h-10 w-10 flex items-center justify-center rounded-lg shadow-sm group-hover:bg-secondary group-hover:text-primary transition-colors duration-500">
-            <img src="/Sankofa-int-school.png" alt="S" className=""/>
+            S
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-black uppercase text-primary leading-none tracking-tight">{t("schoolName")}</span>
